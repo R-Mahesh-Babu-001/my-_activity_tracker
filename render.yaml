@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: daily-tracker-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.1
+      - key: PORT
+        value: 10000
+      - key: FRONTEND_ORIGIN
+        sync: false
+      - key: GOOGLE_SHEET_TAB
+        value: DailyTracker
+
+  - type: web
+    name: daily-tracker-pwa
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.1
+      - key: VITE_API_URL
+        sync: false
+      - key: VITE_GOOGLE_CLIENT_ID
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
