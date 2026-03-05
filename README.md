@@ -1,8 +1,23 @@
 # LevelUp Daily Tracker (PWA + Google OAuth + Google Sheets)
 
-A **React Progressive Web App (PWA)** that tracks your daily coding routine.
+### 🌐 Live Demo
 
-## Features
+https://my-activity-tracker.onrender.com
+
+⚠️ **Note:** This application is hosted on a **Render free instance**.
+The server may go to sleep when inactive, so the **first load may take 20–40 seconds** while the server wakes up. After that, the app will work normally.
+
+---
+
+# Overview
+
+**LevelUp Daily Tracker** is a **React Progressive Web App (PWA)** designed to help developers track their daily coding habits and progress.
+
+The application integrates **Google OAuth authentication** and **Google Sheets** as a lightweight backend data store. Each user automatically gets their **own personal Google Sheet**, ensuring complete data ownership and transparency.
+
+---
+
+# Features
 
 * Google OAuth login
 * Each user owns their own data
@@ -10,26 +25,26 @@ A **React Progressive Web App (PWA)** that tracks your daily coding routine.
 * Checkbox activity sync to Google Sheets
 * XP system with avatar leveling
 * Progress charts and tracking dashboard
-* Installable PWA
+* Installable Progressive Web App (PWA)
 
 ---
 
 # Tech Stack
 
-**Frontend**
+## Frontend
 
 * React
 * Vite
 * vite-plugin-pwa
 * Recharts
 
-**Backend**
+## Backend
 
 * Node.js
 * Express
 * Google APIs
 
-**Deployment**
+## Deployment
 
 * Render (render.yaml included)
 
@@ -37,13 +52,17 @@ A **React Progressive Web App (PWA)** that tracks your daily coding routine.
 
 # How Data Ownership Works
 
-1. User logs in with **Google OAuth**.
-2. Frontend receives a **Google access token**.
-3. Backend verifies the token.
-4. Backend creates a **Google Sheet in the user's Drive** (if it doesn't exist).
-5. All tracker updates are saved in that sheet.
+1. The user logs in using **Google OAuth**.
+2. The frontend receives a **Google access token**.
+3. The backend verifies the token using Google APIs.
+4. If the user logs in for the first time, the backend **creates a Google Sheet in the user's Google Drive**.
+5. All daily tracker updates are synced to that sheet.
 
-Each user owns their **own Google Sheet**.
+This architecture ensures:
+
+* Users **fully own their data**
+* No centralized database is required
+* Data remains transparent and portable
 
 ---
 
@@ -51,13 +70,15 @@ Each user owns their **own Google Sheet**.
 
 ## 1. Create Google OAuth Client
 
-Go to **Google Cloud Console → APIs & Services → Credentials**
+Go to:
+
+Google Cloud Console → **APIs & Services → Credentials**
 
 Create:
 
 **OAuth 2.0 Client ID**
 
-Type:
+Application type:
 
 ```
 Web application
@@ -69,7 +90,7 @@ Add Authorized JavaScript Origins:
 http://localhost:5173
 ```
 
-Enable APIs:
+Enable the following APIs:
 
 ```
 Google Sheets API
@@ -103,7 +124,7 @@ VITE_GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
 VITE_API_URL=http://localhost:8787
 ```
 
-Then run:
+Run the frontend:
 
 ```
 npm install
@@ -122,13 +143,11 @@ http://localhost:5173
 
 ## Step 1
 
-Push this repo to GitHub.
+Push the repository to GitHub.
 
 ## Step 2
 
-Go to **Render Dashboard**
-
-Create:
+Go to **Render Dashboard** and create a new deployment:
 
 ```
 New + → Blueprint
@@ -165,7 +184,7 @@ VITE_GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
 
 # Update Google OAuth for Production
 
-Add this origin in Google Cloud:
+Add the deployed frontend origin in Google Cloud:
 
 ```
 https://your-frontend.onrender.com
